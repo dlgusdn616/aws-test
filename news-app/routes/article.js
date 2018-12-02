@@ -34,58 +34,42 @@ module.exports = {
             }
         });
     },
-    // editArticlePage: function(req, res) {
-    //     let articleId = req.params.id;
-    //     let query = "SELECT * FROM `articles` WHERE id = '" + articleId + "'";
-    //     db.query(query, (err, result) => {
-    //         if (err) {
-    //             return res.status(500).send(err);
-    //         }
-    //         res.render('edit-article.ejs', {
-    //             title: "Edit  article"
-    //             ,article: result[0]
-    //             ,message: ''
-    //         });
-    //     });
-    // },
-    // editArticle: function(req, res) {
-    //     let articleId = req.params.id;
-    //     let first_name = req.body.first_name;
-    //     let last_name = req.body.last_name;
-    //     let position = req.body.position;
-    //     let number = req.body.number;
+    editArticlePage: function(req, res) {
+        let articleId = req.params.id;
+        let query = "SELECT * FROM `articles` WHERE id = '" + articleId + "'";
+        db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.render('edit-article.ejs', {
+                title: "Edit  article"
+                ,article: result[0]
+                ,message: ''
+            });
+        });
+    },
+    editArticle: function(req, res) {
+        let articleId = req.params.id;
+        let article = req.body.article;
 
-    //     let query = "UPDATE `articles` SET `article` = '" + article + "'";
-    //     db.query(query, (err, result) => {
-    //         if (err) {
-    //             return res.status(500).send(err);
-    //         }
-    //         res.redirect('/');
-    //     });
-    // },
-    // deleteArticle: function(req, res) {
-    //     let articleId = req.params.id;
-    //     let getImageQuery = 'SELECT image from `articles` WHERE id = "' + articleId + '"';
-    //     let deleteUserQuery = 'DELETE FROM articles WHERE id = "' + articleId + '"';
+        let query = "UPDATE `articles` SET `article` = '" + article + "'";
+        db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.redirect('/');
+        });
+    },
+    deleteArticle: function(req, res) {
+        let articleId = req.params.id;
+        let deleteUserQuery = 'DELETE FROM articles WHERE id=' + articleId;
 
-    //     db.query(getImageQuery, (err, result) => {
-    //         if (err) {
-    //             return res.status(500).send(err);
-    //         }
-
-    //         let image = result[0].image;
-    //         fs.unlink(`public/assets/img/${image}`, (err) => {
-    //             if (err) {
-    //                 return res.status(500).send(err);
-    //             }
-    //             db.query(deleteUserQuery, (err, result) => {
-    //                 if (err) {
-    //                     return res.status(500).send(err);
-    //                 }
-    //                 res.redirect('/');
-    //             });
-    //         });
-    //     });
-    // }
+        db.query(deleteUserQuery, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.redirect('/');
+        });
+    }
 };
 
